@@ -1,16 +1,16 @@
 let ws=require('nodejs-websocket');
 
 console.log("建立连接")
-let isName=true
+let name1=false,name2=null;
+let fromName1Msg='',fromName2Msg=''
 let server=ws.createServer(function(conn){
-    console.log(isName)
     conn.on("text",function(str){
-        console.log(str)
-        if(isName){
-            conn.sendText(str+'上线了')
-            isName=false
-        }else{
-            conn.sendText(str)
+        if(str=='web1'){
+            name1=true;
+        }
+        if(name1){
+            fromName1Msg=str;
+            conn.sendText(JSON.stringify({to:"web2",message:fromName1Msg}))
         }
     });
     conn.on("close",function(str){
