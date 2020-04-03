@@ -61,10 +61,7 @@ export default {
                 }
 
                 ws.onmessage = function(e) {
-                    let data = JSON.parse(e.data)
-                    if (data.to == 'web1') {
-                        that.messageList.push({ text: data.message, type: 'robot' })
-                    }
+                    that.messageList.push({ text: e.data, type: 'robot' })
                     that.form.message = ''
                 }
                 ws.onclose = function() {
